@@ -1,0 +1,207 @@
+$negro: #111111;
+$blanco: #FEFEFE;
+$gris-oscuro: #222222;
+$gris-claro: #C8C8C8;
+$gris-hover: #ACABAB;
+$azul: #3E60E9;
+$azul-hover: #254BE6;
+
+$sombra-oscura: 10px 10px 20px rgba(170, 170, 170, .16);
+$sombra-clara: 10px 10px 20px rgba(0, 0, 0, .16);
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap');
+
+@mixin flexbox-uses($display, $direction, $justify, $align){
+    display: $display;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+html{
+	font-size: 62.5%  /* 62.5% == 10px*/;
+	box-sizing: border-box;
+}
+*, *::before, *::after{
+	box-sizing: inherit;
+}
+body{
+    font-size: 1.6rem;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f1f1f1;
+    transition: .3s ease all;
+
+    &.dark{
+        background-color: $negro;
+    }
+}
+// ESTILOS GENERALES
+.contenedor{
+    max-width: 100rem;
+    width: 90%;
+    margin: auto;
+    padding: 5rem 0;
+}
+a{
+    text-decoration: none;
+    color: $gris-oscuro;
+    font-weight: 500;
+}
+// HEADER
+nav{
+    position: relative;
+    background-color: $blanco;
+    padding: 1.5rem 2rem;
+    @include flexbox-uses(flex, row, space-between, center);
+    transition: .3s ease all;
+    box-shadow: $sombra-oscura;
+
+    body.dark &{
+        background-color: $gris-oscuro;
+        box-sizing: $sombra-clara;
+        a{
+            color: $gris-claro;
+            &:hover{
+                color: $blanco;
+            }
+        }
+    }
+
+    .logotipo{
+        font-weight: 700;
+    }
+
+    .enlaces{
+        @include flexbox-uses(flex, row, center, center);
+        a{
+            margin-right: 4rem;
+            &:hover{
+                color: #707070;
+            }
+        }
+    }
+
+}
+// SWITCH
+.switch{
+    border-radius: 100rem;
+    position: relative;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    display: flex;
+    background-color: #343D58;
+
+    &::after{
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: unset;
+        display: block;
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        background-color: #f1f1f1;
+        transition: .3s ease all;
+        box-shadow: 0 0 2px 2px rgba(0, 0, 0, .2);
+    }
+
+    &.active{
+        background-color: orange;
+        color: #000;
+
+        &::after{
+            right: 0;
+            left: unset;
+        }
+    }
+
+    span{
+        width: 3rem;
+        height: 3rem;
+        line-height: 3rem;
+        display: block;
+        background: none;
+        color: #fff;
+    }
+}
+// GRID
+.grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4rem 2rem;
+    padding: 4rem 0;
+    
+    .card{
+        min-height: 19.5rem;
+        position: relative;
+        padding: 2rem;
+        margin-top: 5rem;
+        border-radius: 5px;
+        transition: .3s ease all;
+        @include flexbox-uses(flex, column, center, flex-end);
+        box-shadow: $sombra-oscura;
+        background-color: $blanco;
+
+        body.dark &{
+            background-color: $gris-oscuro;
+            box-shadow: $sombra-clara;
+        }
+
+        img{
+            vertical-align: top;
+            padding: auto;
+            width: 100%;
+            max-height: 16.5rem;
+            border-radius: 7px;
+            object-fit: cover;
+        }
+
+        .botones{
+            width: 100%;
+			margin-top: 2rem;
+			display: grid;
+			grid-gap: 20px;
+			grid-template-columns: repeat(2, 1fr);
+
+            .boton{
+                padding: 1rem;
+				color: #fff;
+				width: 100%;
+				display: block;
+				background: $negro;
+				text-align: center;
+				border-radius: 5px;
+				transition: .3s ease all;
+
+                &.primario {
+					background: $azul;
+					&:hover {
+						background: $azul-hover;
+					}
+				}
+
+                &.secundario {
+					background: $gris-claro;
+					&:hover {
+						background: $gris-claro;
+					}
+				}
+            }
+        }
+    }
+}
+@media (max-width: 800px) {
+    .enlaces-menu{
+        display: none;
+    }
+    .grid{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 530px) {
+    .grid{
+        grid-template-columns: 1fr;
+    }
+}
